@@ -16,25 +16,51 @@ import {
   Zkey,
   Xkey,
   Ckey,
+  on,
+  off,
+  bankOff,
+  bankOn,
 } from "./Redux/Actions";
+import ErrorBoundry from "./ErrorBoundary";
+import AppCopy from "./Copies";
 
 //! APP COMPONENT
 function App() {
+  const flipSwitch = useSelector((state) => state.power);
+
   return (
-    <div id="drum-machine" className="App">
-      <div id="display" className="main-container">
-        <div className="logo">
-          <span>FCC</span>
-          <FontAwesomeIcon size="lg" className="icon" icon={faFreeCodeCamp} />
-        </div>
-        <div className="left-container">
-          <DrumPads1 />
-        </div>
-        <div className="right-container">
-          <Mixers />
-        </div>
-      </div>
-    </div>
+    <>
+      {flipSwitch === "on" ? (
+        <>
+          {" "}
+          <div id="drum-machine" className="App">
+            <ErrorBoundry>
+              <div id="display" className="main-container">
+                <div className="logo">
+                  <span>FCC</span>
+                  <FontAwesomeIcon
+                    size="lg"
+                    className="icon"
+                    icon={faFreeCodeCamp}
+                  />
+                </div>
+                {/* separatte here */}
+
+                <div className="left-container">
+                  <DrumPads />
+                </div>
+                <div className="right-container">
+                  <Mixers />
+                </div>
+              </div>
+              {/* separate here */}
+            </ErrorBoundry>
+          </div>
+        </>
+      ) : (
+        <AppCopy />
+      )}
+    </>
   );
 }
 
@@ -42,27 +68,87 @@ export default App;
 
 //! MIXER COMPONENT
 export const Mixers = () => {
-  const description = useSelector((state) => state.display)
+  const [vol, setVol] = useState(50);
+  const dispatch = useDispatch();
+  const description1 = useSelector((state) => state.display1);
+  const description2 = useSelector((state) => state.display2);
+  const flipSwitch = useSelector((state) => state.power);
+  const flipBank = useSelector((state) => state.bank);
+
+  const handleVolChange = (e) => {
+    setVol(e.target.value);
+  };
+
   return (
     <>
+      {/* ternary operator for power switch display */}
       <h3>Power</h3>
-      <div className="switch-container">
-        <div></div>
-      </div>
-      <button>{description}</button>
+      {flipSwitch === "off" ? (
+        <div
+          onClick={() => dispatch(on())}
+          className={flipSwitch + " switch-container power"}
+          //
+        >
+          <div></div>
+        </div>
+      ) : (
+        <div
+          onClick={() => dispatch(off())}
+          className={flipSwitch + " switch-container power"}
+          //
+        >
+          <div></div>
+        </div>
+      )}
+
+      <button>{flipBank === "off" ? description2 : description1}</button>
+      <p>{"volume: " + vol}</p>
       <div className="slider">
-        <div className="slider-tab"></div>
+        <input
+          onChange={handleVolChange}
+          defaultValue={50}
+          type="range"
+          id="volume"
+          name="volume"
+          min="0"
+          max="100"
+        />
       </div>
       <h3>Bank</h3>
-      <div className="switch-container">
-        <div> </div>
-      </div>
+      {flipBank === "off" ? (
+        <div
+          onClick={() => dispatch(bankOn())}
+          className={flipBank + " switch-container bank"}
+        >
+          <div> </div>
+        </div>
+      ) : (
+        <div
+          onClick={() => dispatch(bankOff())}
+          className={flipBank + " switch-container bank"}
+        >
+          <div> </div>
+        </div>
+      )}
     </>
   );
 };
 
 //! DRUMPADS COMPONENT
-export const DrumPads1 = () => {
+export const DrumPads = () => {
+  const flipBank = useSelector((state) => state.bank);
+
+  const clickColorChange = (selector) => {
+    const id = document.getElementById(selector);
+    console.log(id);
+    id.style.backgroundColor = "orange";
+    id.style.border = "none";
+    setTimeout(() => {
+      id.style.backgroundColor = "#747370";
+      id.style.border = "solid .5px black";
+    }, 100);
+  };
+
   const dispatch = useDispatch();
   //* keyDown event listener for drum pads
   // added switch statement to select the correct description display upon button click
@@ -110,7 +196,7 @@ export const DrumPads1 = () => {
 
   // array to map over pad info
 
-  const buttonArray = [
+  const buttonArray1 = [
     {
       keyCode: 81,
       text: "Q",
@@ -166,11 +252,68 @@ export const DrumPads1 = () => {
       src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
     },
   ];
+  const buttonArray2 = [
+    {
+      keyCode: 81,
+      text: "Q",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3",
+    },
+    {
+      keyCode: 87,
+      text: "W",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3",
+    },
+    {
+      keyCode: 69,
+      text: "E",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3",
+    },
+    {
+      keyCode: 65,
+      text: "A",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3",
+    },
+    {
+      keyCode: 83,
+      text: "S",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3",
+    },
+    {
+      keyCode: 68,
+      text: "D",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3",
+    },
+    {
+      keyCode: 90,
+      text: "Z",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3",
+    },
+    {
+      keyCode: 88,
+      text: "X",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3",
+    },
+    {
+      keyCode: 67,
+      text: "C",
+
+      src: "https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3",
+    },
+  ];
 
   //* onClick for drum pads
   // added switch statement to select the correct description display upon button click
   const playAudio = (selector) => {
     const audio = document.getElementById(selector);
+
     console.log(selector);
     audio.play();
 
@@ -215,64 +358,52 @@ export const DrumPads1 = () => {
   return (
     <>
       <div className="pad-container">
-        {buttonArray.map((item) => {
-          return (
-            <Pad
-              key={item.text}
-              audio={item.src}
-              onClick={() => {
-                playAudio(item.text);
-              }}
-              symbol={item.text}
-              src={item.src}
-            />
-          );
-        })}
+        {flipBank === "off"
+          ? buttonArray2.map((item) => {
+              return (
+                <Pad
+                  extra={() => {
+                    clickColorChange(item.src);
+                  }}
+                  key={item.text}
+                  audio={item.src}
+                  onClick={() => {
+                    playAudio(item.text);
+                  }}
+                  symbol={item.text}
+                  src={item.src}
+                />
+              );
+            })
+          : buttonArray1.map((item) => {
+              return (
+                <Pad
+                  extra={() => {
+                    clickColorChange(item.src);
+                  }}
+                  key={item.text}
+                  audio={item.src}
+                  onClick={() => {
+                    playAudio(item.text);
+                  }}
+                  symbol={item.text}
+                  src={item.src}
+                />
+              );
+            })}
       </div>
     </>
   );
 };
 
 //! PAD COMPONENT
-export const Pad = ({ symbol, audio, onClick, handleKeyDown }) => {
+export const Pad = ({ symbol, audio, onClick, extra }) => {
   return (
-    <div
-      id={audio}
-      onClick={onClick}
-      // onKeyDown={handleKeyDown}
-      className="drum-pad"
-    >
-      <audio id={symbol} controls className="clip" src={audio} />
-
-      {symbol}
+    <div className="extra-container" onClick={extra}>
+      <div id={audio} onClick={onClick} className="drum-pad">
+        <audio id={symbol} controls className="clip" src={audio} />
+        {symbol}
+      </div>
     </div>
   );
 };
-
-// excluding Pad component
-// <div
-//   id={item.text}
-//   onKeyDown={() => {
-//     playAudio(item.text)
-//   }}
-//   onClick={() => {
-//     playAudio(item.src)
-//   }}
-//   // onKeyDown={handleKeyDown}
-//   className="pad"
-// >
-//   <audio id={item.src} controls className="clip" src={item.src} />
-
-//   {item.text}
-// </div>
-
-/*
-- if I create a store state what will its purpose be?
-- an additional onclick logic to set state in the button
-- that state will be taken from the store to the description prop in mixers
-hwo can i do that?
-
-
-
-
- */
