@@ -1,38 +1,125 @@
+@import url("https://fonts.googleapis.com/css?family=Timmana");
+
+* {
+  font-family: "Timmana";
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin-top: 20rem;
 }
 
-.App-link {
-  color: #61dafb;
+/* icon */
+.logo {
+  justify-content: end;
+  width: 100%;
+  position: relative;
+  right: -90%;
+  font-size: 1.2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* containers */
+.main-container {
+  display: flex;
+  width: 80vw;
+  max-width: 50rem;
+  height: 20rem;
+  border: solid 3px orange;
+  background-color: rgb(210, 207, 202);
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.left-container,
+.right-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: solid 1px lime; */
+  width: 45%;
+}
+
+/* left side */
+
+.pad-container {
+  width: 95%;
+  height: 95%;
+  /* border: solid 3px blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0rem 0 1.5rem 3rem;
+}
+
+
+
+.drum-pad {
+  padding-top: 1rem;
+  font-size: 2rem;
+  /* width: 100%; */
+  width: 6rem;
+  height: 33%;
+  border-radius: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(116, 115, 112);
+  -webkit-box-shadow: 1px 1px 11px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 11px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 11px -2px rgba(0, 0, 0, 0.75);
+  /* margin: .5rem; */
+}
+
+.drum-pad:hover {
+  cursor: pointer;
+}
+
+/* right side */
+
+.switch-container {
+  width: 3rem;
+  height: 1rem;
+  margin-bottom: 1rem;
+  background-color: black;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.switch-container > div {
+  width: 40%;
+  background-color: blue;
+  height: 80%;
+  margin: 10%;
+}
+
+.switch-container > div:hover {
+  cursor: pointer;
+}
+
+button {
+  width: 60%;
+  height: 4rem;
+  background-color: rgb(116, 115, 112);
+  border: none;
+  font-size: 1.5rem;
+}
+
+.slider {
+  width: 80%;
+  height: 0.3rem;
+  background-color: black;
+  margin-top: 2rem;
+}
+
+.slider > div {
+  height: 1rem;
+  width: 0.2rem;
+  background-color: blue;
+  display: flex;
+  align-items: center;
 }
