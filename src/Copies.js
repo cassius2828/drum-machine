@@ -4,6 +4,7 @@ import { on, off } from "./Redux/Actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFreeCodeCamp } from "@fortawesome/free-brands-svg-icons";
 import ErrorBoundry from "./ErrorBoundary";
+import {faVolumeMute} from "@fortawesome/free-solid-svg-icons";
 
 //! MIXER COMPONENT COPY
 export const MixersCopy = () => {
@@ -33,8 +34,11 @@ export const MixersCopy = () => {
       )}
 
       <button></button>
-      <p>sample text</p>
+      <p>--</p>
       <div className="slider">
+        <FontAwesomeIcon 
+        style={{color: 'transparent'}}
+        icon={faVolumeMute} />
         <input
           defaultValue={50}
           type="range"

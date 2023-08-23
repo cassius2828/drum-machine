@@ -4,6 +4,12 @@ import React, { useEffect, useState } from "react";
 import tachyons from "tachyons";
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faVolumeMute,
+  faVolumeLow,
+  faVolumeHigh,
+  faVolumeUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { faFreeCodeCamp } from "@fortawesome/free-brands-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -47,7 +53,9 @@ function App() {
                 {/* separatte here */}
 
                 <div className="left-container">
-                  <DrumPads />
+                  <DrumPads
+                  
+                  />
                 </div>
                 <div className="right-container">
                   <Mixers />
@@ -69,14 +77,18 @@ export default App;
 //! MIXER COMPONENT
 export const Mixers = () => {
   const [vol, setVol] = useState(50);
+  const [speaker, setSpeaker] = useState(vol);
   const dispatch = useDispatch();
   const description1 = useSelector((state) => state.display1);
   const description2 = useSelector((state) => state.display2);
   const flipSwitch = useSelector((state) => state.power);
   const flipBank = useSelector((state) => state.bank);
 
+
   const handleVolChange = (e) => {
     setVol(e.target.value);
+
+
   };
 
   return (
@@ -104,6 +116,28 @@ export const Mixers = () => {
       <button>{flipBank === "off" ? description2 : description1}</button>
       <p>{"volume: " + vol}</p>
       <div className="slider">
+        {vol > 0 && vol < 50 ? (
+          <FontAwesomeIcon
+            onClick={() => {
+              setVol(0);
+          
+            }}
+            icon={faVolumeLow}
+          />
+        ) : vol >= 50 ? (
+          <FontAwesomeIcon
+            onClick={() => {
+              setVol(0);
+          
+
+            }}
+            icon={faVolumeHigh}
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faVolumeMute}
+          />
+        )}
         <input
           onChange={handleVolChange}
           defaultValue={50}
@@ -135,9 +169,10 @@ export const Mixers = () => {
 };
 
 //! DRUMPADS COMPONENT
-export const DrumPads = () => {
+export const DrumPads = ({vol}) => {
   const flipBank = useSelector((state) => state.bank);
 
+  // highlights drum pad on click
   const clickColorChange = (selector) => {
     const id = document.getElementById(selector);
     console.log(id);
@@ -315,6 +350,7 @@ export const DrumPads = () => {
     const audio = document.getElementById(selector);
 
     console.log(selector);
+    audio.volume = vol;
     audio.play();
 
     switch (selector) {
