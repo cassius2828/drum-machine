@@ -52,14 +52,7 @@ function App() {
                 </div>
                 {/* separatte here */}
 
-                <div className="left-container">
-                  <DrumPads
-                  
-                  />
-                </div>
-                <div className="right-container">
-                  <Mixers />
-                </div>
+                <DrumpadsAndMixers />
               </div>
               {/* separate here */}
             </ErrorBoundry>
@@ -74,102 +67,20 @@ function App() {
 
 export default App;
 
-//! MIXER COMPONENT
-export const Mixers = () => {
+// ! DRUMPADS + MIXERS
+
+export const DrumpadsAndMixers = () => {
+  // * DRUMPADS SECTION
   const [vol, setVol] = useState(50);
-  const [speaker, setSpeaker] = useState(vol);
-  const dispatch = useDispatch();
   const description1 = useSelector((state) => state.display1);
   const description2 = useSelector((state) => state.display2);
   const flipSwitch = useSelector((state) => state.power);
-  const flipBank = useSelector((state) => state.bank);
-
 
   const handleVolChange = (e) => {
     setVol(e.target.value);
-
-
   };
 
-  return (
-    <>
-      {/* ternary operator for power switch display */}
-      <h3>Power</h3>
-      {flipSwitch === "off" ? (
-        <div
-          onClick={() => dispatch(on())}
-          className={flipSwitch + " switch-container power"}
-          //
-        >
-          <div></div>
-        </div>
-      ) : (
-        <div
-          onClick={() => dispatch(off())}
-          className={flipSwitch + " switch-container power"}
-          //
-        >
-          <div></div>
-        </div>
-      )}
-
-      <button>{flipBank === "off" ? description2 : description1}</button>
-      <p>{"volume: " + vol}</p>
-      <div className="slider">
-        {vol > 0 && vol < 50 ? (
-          <FontAwesomeIcon
-            onClick={() => {
-              setVol(0);
-          
-            }}
-            icon={faVolumeLow}
-          />
-        ) : vol >= 50 ? (
-          <FontAwesomeIcon
-            onClick={() => {
-              setVol(0);
-          
-
-            }}
-            icon={faVolumeHigh}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faVolumeMute}
-          />
-        )}
-        <input
-          onChange={handleVolChange}
-          defaultValue={50}
-          type="range"
-          id="volume"
-          name="volume"
-          min="0"
-          max="100"
-        />
-      </div>
-      <h3>Bank</h3>
-      {flipBank === "off" ? (
-        <div
-          onClick={() => dispatch(bankOn())}
-          className={flipBank + " switch-container bank"}
-        >
-          <div> </div>
-        </div>
-      ) : (
-        <div
-          onClick={() => dispatch(bankOff())}
-          className={flipBank + " switch-container bank"}
-        >
-          <div> </div>
-        </div>
-      )}
-    </>
-  );
-};
-
-//! DRUMPADS COMPONENT
-export const DrumPads = ({vol}) => {
+  // * MIXERS SECTION
   const flipBank = useSelector((state) => state.bank);
 
   // highlights drum pad on click
@@ -350,7 +261,7 @@ export const DrumPads = ({vol}) => {
     const audio = document.getElementById(selector);
 
     console.log(selector);
-    audio.volume = vol;
+    audio.volume = vol / 100;
     audio.play();
 
     switch (selector) {
@@ -393,40 +304,115 @@ export const DrumPads = ({vol}) => {
 
   return (
     <>
-      <div className="pad-container">
-        {flipBank === "off"
-          ? buttonArray2.map((item) => {
-              return (
-                <Pad
-                  extra={() => {
-                    clickColorChange(item.src);
-                  }}
-                  key={item.text}
-                  audio={item.src}
-                  onClick={() => {
-                    playAudio(item.text);
-                  }}
-                  symbol={item.text}
-                  src={item.src}
-                />
-              );
-            })
-          : buttonArray1.map((item) => {
-              return (
-                <Pad
-                  extra={() => {
-                    clickColorChange(item.src);
-                  }}
-                  key={item.text}
-                  audio={item.src}
-                  onClick={() => {
-                    playAudio(item.text);
-                  }}
-                  symbol={item.text}
-                  src={item.src}
-                />
-              );
-            })}
+      {" "}
+      <div className="left-container">
+        <>
+          <div className="pad-container">
+            {flipBank === "off"
+              ? buttonArray2.map((item) => {
+                  return (
+                    <Pad
+                      extra={() => {
+                        clickColorChange(item.src);
+                      }}
+                      key={item.text}
+                      audio={item.src}
+                      onClick={() => {
+                        playAudio(item.text);
+                      }}
+                      symbol={item.text}
+                      src={item.src}
+                    />
+                  );
+                })
+              : buttonArray1.map((item) => {
+                  return (
+                    <Pad
+                      extra={() => {
+                        clickColorChange(item.src);
+                      }}
+                      key={item.text}
+                      audio={item.src}
+                      onClick={() => {
+                        playAudio(item.text);
+                      }}
+                      symbol={item.text}
+                      src={item.src}
+                    />
+                  );
+                })}
+          </div>
+        </>
+      </div>
+      <div className="right-container">
+        <>
+          {/* ternary operator for power switch display */}
+          <h3>Power</h3>
+          {flipSwitch === "off" ? (
+            <div
+              onClick={() => dispatch(on())}
+              className={flipSwitch + " switch-container power"}
+              //
+            >
+              <div></div>
+            </div>
+          ) : (
+            <div
+              onClick={() => dispatch(off())}
+              className={flipSwitch + " switch-container power"}
+              //
+            >
+              <div></div>
+            </div>
+          )}
+
+          <button>{flipBank === "off" ? description2 : description1}</button>
+          <p>{"volume: " + vol}</p>
+          <div className="slider">
+            {vol > 0 && vol < 50 ? (
+              <FontAwesomeIcon
+                onClick={() => {
+                  setVol(0);
+                }}
+                icon={faVolumeLow}
+              />
+            ) : vol >= 50 ? (
+              <FontAwesomeIcon
+                onClick={() => {
+                  setVol(0);
+                }}
+                icon={faVolumeHigh}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faVolumeMute} />
+            )}
+            <input
+              onChange={handleVolChange}
+              defaultValue={50}
+              type="range"
+              id="volume"
+              name="volume"
+              min="0"
+              max="100"
+            />
+          </div>
+          <h3>Bank</h3>
+          {flipBank === "off" ? (
+            <div
+              onClick={() => dispatch(bankOn())}
+              className={flipBank + " switch-container bank"}
+            >
+              <div> </div>
+            </div>
+          ) : (
+            <div
+              onClick={() => dispatch(bankOff())}
+              className={flipBank + " switch-container bank"}
+            >
+              <div> </div>
+            </div>
+          )}
+        </>
       </div>
     </>
   );
