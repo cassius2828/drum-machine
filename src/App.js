@@ -347,7 +347,7 @@ export const DrumpadsAndMixers = () => {
       <div className="right-container">
         <>
           {/* ternary operator for power switch display */}
-          <h3>Power</h3>
+          <h3 id="power-label">Power</h3>
           {flipSwitch === "off" ? (
             <div
               onClick={() => dispatch(on())}
@@ -366,8 +366,8 @@ export const DrumpadsAndMixers = () => {
             </div>
           )}
 
-          <button>{flipBank === "off" ? description2 : description1}</button>
-          <p>{"volume: " + vol}</p>
+          <button id="bank-description">{flipBank === "off" ? description2 : description1}</button>
+          <p className="volume-description">{"volume: " + vol}</p>
           <div className="slider">
             {vol > 0 && vol < 50 ? (
               <FontAwesomeIcon
@@ -396,7 +396,7 @@ export const DrumpadsAndMixers = () => {
               max="100"
             />
           </div>
-          <h3>Bank</h3>
+          <h3 id="bank-label">Bank</h3>
           {flipBank === "off" ? (
             <div
               onClick={() => dispatch(bankOn())}

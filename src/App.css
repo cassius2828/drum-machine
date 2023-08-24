@@ -8,269 +8,125 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20rem;
+  margin-top: 2rem;
 }
 
 /* icon */
 .logo {
-  justify-content: end;
   width: 100%;
   position: relative;
-  right: -90%;
   font-size: 1.2rem;
+  top: 0.125rem;
+  left: 0.25rem;
 }
 
 /* containers */
 .main-container {
   display: flex;
+  flex-direction: column;
   width: 80vw;
   max-width: 50rem;
-  height: 25rem;
+  height: 30rem;
   border: solid 3px orange;
-  background-color: rgb(210, 207, 202);
+
+  background-color: rgb(179, 176, 172);
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-}
-
-/* !768px 
-main containers + logo*/
-@media (max-width: 768px) {
-  .main-container {
-    height: 80vh;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .App {
-    margin-top: 5rem;
-  }
-
-  .logo {
-    right: -85%;
-  }
 }
 
 .left-container,
 .right-container {
+  width: 100%;
+  height: 45%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 45%;
 }
 
-/* left side */
+/** LEFT / TOP */
 
-.pad-container {
-  width: 95%;
-  height: 95%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.left-container {
   flex-wrap: wrap;
-  margin: 0rem 0 1.5rem 3rem;
+}
+.pad-container {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .extra-container {
-  margin: 0 5px;
-  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 33%;
+  height: 33%;
 }
-
 .drum-pad {
-  padding-top: 1rem;
-  font-size: 2rem;
-  width: 6rem;
-  height: 6rem;
-  border-radius: 7%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #747370;
-  border: solid 0.5px black;
-  -webkit-box-shadow: 1px 1px 11px -2px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 1px 1px 11px -2px rgba(0, 0, 0, 0.75);
-  box-shadow: 1px 1px 11px -2px rgba(0, 0, 0, 0.75);
-}
-/*! 1000px 
-Drum pads*/
-@media (max-width: 1000px) {
-  .pad-container {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 0rem 0 1.5rem 3rem;
-  }
-
-  .extra-container {
-    /* border: solid 1px lime; */
-    display: flex;
-    justify-content: center;
-  }
-
-  .drum-pad {
-    max-width: 100%;
-    /* font-size: 1.5rem; */
-  }
-}
-/* ! 768px 
-pad-container */
-@media (max-width: 768px) {
-  .pad-container {
-    margin: auto;
-  }
-}
-
-/*! 515px 
-drum pads */
-@media (max-width: 515px) {
-  .pad-container {
-    display: grid;
-    gap: 0.3rem;
-    margin: 0;
-    padding: 0;
-
-    /* max-width: 4rem; */
-  }
-
-  .extra-container {
-    /* border: solid 1px lime; */
-    display: flex;
-    justify-content: center;
-  }
-
-  .drum-pad {
-    /* max-height: 5rem; */
-
-    /* max-width: 3rem; */
-    font-size: 1.5rem;
-  }
-}
-
-/*! 430px 
-drum pads + logo*/
-@media (max-width: 430px) {
-  .pad-container {
-    display: grid;
-    gap: 0.3rem;
-    margin: 0;
-    padding: 0;
-
-    /* max-width: 4rem; */
-  }
-
-  .extra-container {
-    /* border: solid 1px lime; */
-    display: flex;
-    justify-content: center;
-  }
-
-  .drum-pad {
-    height: 4.5rem;
-
-    font-size: 1.5rem;
-    width: 4.5rem;
-  }
-
-  .logo {
-    right: -80%;
-  }
-}
-
-/* ! 360px 
-logo */
-@media (max-width: 360px) {
-  .logo {
-    right: -75%;
-  }
-}
-
-/*! 335px
-drum pads */
-@media (max-width: 335px) {
-  .pad-container {
-    display: grid;
-    gap: 0.3rem;
-    margin: 0;
-    padding: 0;
-
-    /* max-width: 4rem; */
-  }
-
-  .extra-container {
-    /* border: solid 1px lime; */
-    display: flex;
-    justify-content: center;
-  }
-
-  .drum-pad {
-    height: 3.5rem;
-
-    font-size: 1.5rem;
-    width: 3.5rem;
-  }
-}
-
-.drum-pad:hover {
   cursor: pointer;
+  background-color: #747370;
+  width: 100%;
+  margin: 0.25rem;
+  border-radius: 4px;
+  border: solid 1px black;
+  -webkit-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.75);
 }
 
-/* right side */
-/** switches */
-.switch-container {
-  width: 3rem;
-  height: 1rem;
-  margin-bottom: 1rem;
-  background-color: black;
-  display: flex;
-  justify-content: end;
+/** RIGHT / BOTTOM */
+
+.right-container * {
+  margin: 0;
+}
+.right-container {
+  flex-direction: column;
   align-items: center;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  width: 2.5rem;
+  background-color: black;
+  height: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .off {
   justify-content: start;
 }
 
-.switch-container > div {
-  width: 40%;
-  background-color: blue;
-  height: 80%;
-  margin: 10%;
+.on {
+  justify-content: end;
 }
 
-.switch-container > div:hover {
+.power > div,
+.bank > div {
+  width: 33%;
+  height: 75%;
+  background-color: #0008f0;
+  margin: 2px;
   cursor: pointer;
 }
 
-h3:last-of-type {
-  margin-top: 2rem;
+#bank-description {
+  margin-bottom: 1rem;
+  border: solid 2px black;
+  padding-top: 8px;
 }
 
-p {
-  margin-bottom: 0;
-}
-/** switches */
-
-button {
-  width: 60%;
-  height: 4rem;
-  background-color: rgb(116, 115, 112);
-  border: none;
-  font-size: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  button {
-    width: 100%;
-  }
-}
-
-/**volume slider  */
+/* * VOLUME SLIDER  */
 
 .slider {
   width: 80%;
   height: 0.3rem;
-  /* background-color: black; */
-  margin-top: 2rem;
+
+  margin: 2rem 0;
+  position: relative;
+  top: -1.5rem;
 }
 
 #volume {
@@ -367,4 +223,43 @@ input[type="range"]:focus::-ms-fill-lower {
 }
 input[type="range"]:focus::-ms-fill-upper {
   background: #000000;
+}
+
+
+/* /////////////////// */
+/* ! MEDIA QUERIES DESKTOP */
+/* /////////////////// */
+
+@media (min-width: 769px) {
+
+  .main-container {
+    flex-direction: row;
+    height: auto;
+    position: relative;
+  }
+
+  .logo {
+  width: 100%;
+  position: absolute;
+  font-size: 1.2rem;
+  top: 0.125rem;
+  left: 92.5%;
+}
+.left-container, .right-container {
+ width: 50%;
+  height: 100%;
+
+}
+
+.pad-container {
+  width: 100%;
+  height: 25rem;
+  padding: 1rem;
+}
+
+.power {
+  margin-bottom: .75rem;
+}
+
+
 }
