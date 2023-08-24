@@ -33,7 +33,7 @@ export const MixersCopy = () => {
         </div>
       )}
 
-      <button></button>
+      <button id="bank-description"></button>
       <p>--</p>
       <div className="slider">
         <FontAwesomeIcon 

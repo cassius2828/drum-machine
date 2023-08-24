@@ -91,7 +91,7 @@ export const DrumpadsAndMixers = () => {
     id.style.border = "none";
     setTimeout(() => {
       id.style.backgroundColor = "#747370";
-      id.style.border = "solid .5px black";
+      id.style.border = "solid 1px black";
     }, 100);
   };
 
